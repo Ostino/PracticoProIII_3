@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.regex.Matcher;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,7 +10,7 @@ public class Test {
     private final String OPERACION_REGEX =
             "^\\s*([a-zA-Z]+)\\s+([0-9]{1,2}|[a-zA-Z]+)$";
     private String comandoEntrada;
-
+    private static Logger logger = LogManager.getLogger(Test.class);
     public Test(Imagen img) {
         modelo = img;
     }
@@ -16,7 +19,7 @@ public class Test {
         comandoEntrada = linea;
     }
 
-    public String procesarSalida() {
+    public String procesarSalida() throws InterruptedException {
         boolean valido = validarEntrada();
         if (!valido) {
             return "ERROR: No entiendo la operacion";
@@ -35,32 +38,25 @@ public class Test {
              arg1int = Integer.parseInt(m.group(2));
         }
 
-        // int arg1 = Integer.parseInt(m.group(2));
-        //int arg2 = Integer.parseInt(m.group(3));
-
-        /*if (AvoLap.equals("Lapiz") && arg1.equals("arriba"))
-            modelo.setPintable(true);
-        if (AvoLap.equals("Lapiz")&& arg1.equals("abajo"))
+        if (AvoLap.equals("Lapiz") && arg1.equals("arriba"))
             modelo.setPintable(false);
-*/
+            logger.info("El lapiz subio");
+        if (AvoLap.equals("Lapiz")&& arg1.equals("abajo"))
+            modelo.setPintable(true);
+        logger.info("El lapiz bajo");
         if (AvoLap.equals("Arriba"))
             modelo.movArriba(arg1int);
-       // System.out.println(arg1int+"arriba ");
-           // return "Se movio "+arg1int+" arriba ";
-
+        logger.info("La tortuga se movio : "+arg1int+" Hacia arriba");
         if (AvoLap.equals("Abajo"))
             modelo.movAbajo(arg1int);
-
-           // return "Se movio "+arg1int+" abajo ";
+        logger.info("La tortuga se movio : "+arg1int+" Hacia abajo");
         if (AvoLap.equals("Izquierda"))
             modelo.movIzquierda(arg1int);
-
-            //return "Se movio "+arg1int+" a la izquierda ";
+        logger.info("La tortuga se movio : "+arg1int+" Hacia la izquierda");
         if (AvoLap.equals("Derecha"))
             modelo.movDerecha(arg1int);
-
-            //return "Se movio "+arg1int+" a la derecha ";
-        return null;
+        logger.info("La tortuga se movio : "+arg1int+" Hacia la derecha");
+        return "Accion valida";
     }
 
     private boolean validarEntrada() {

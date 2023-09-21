@@ -25,7 +25,6 @@ public class Ventana extends JFrame {
         modelo.addObserver(panel);
         this.getContentPane().add(panel, BorderLayout.CENTER);
 
-
        /* JButton btn = new JButton("Achicar");
         btn.addActionListener(e -> {
             btnAchicar_clicked();
@@ -98,4 +97,6 @@ public class Ventana extends JFrame {
         srv.close();
         System.out.println("Cerrado todo y comunicacion concluida");
     }
+
+
 }

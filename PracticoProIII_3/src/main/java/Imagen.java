@@ -1,6 +1,11 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+
+import static java.lang.Thread.sleep;
 
 public class Imagen implements IDibujador {
     private int alto;
@@ -10,6 +15,7 @@ public class Imagen implements IDibujador {
     private boolean pintable;
     private int LapizFinalX = 256;
     private int LapizFinalY = 256;
+    private int tempo =10;
 
     public Imagen(int w, int h) {
         ancho = w;
@@ -17,6 +23,7 @@ public class Imagen implements IDibujador {
         pixeles = new int[ancho][alto];
         observado = new PropertyChangeSupport(this);
         pintable = true;
+
     }
 
     @Override
@@ -101,39 +108,43 @@ public class Imagen implements IDibujador {
     }
     public void setLapizFinalX(int x){LapizFinalX=x;
     }
-    public void movArriba(int num) {
-        System.out.println(LapizFinalX);
-        System.out.println(LapizFinalY);
+    public void movArriba(int num) throws InterruptedException {
+        if (isPintable()) {
             for (int i = 0; i < num; i++) {
                 pixeles[LapizFinalX][LapizFinalY] = 0;
                 LapizFinalY--;
-                observado.firePropertyChange("IMAGEN",true, false);
+                observado.firePropertyChange("IMAGEN", true, false);
+                sleep(tempo);
+            }
         }
     }
-    public void movAbajo(int num) {
+    public void movAbajo(int num) throws InterruptedException {
         if (isPintable()) {
             for (int i = 0; i < num; i++) {
                 pixeles[LapizFinalX][LapizFinalY] = 0;
                 LapizFinalY++;
                 observado.firePropertyChange("IMAGEN",true, false);
+                sleep(tempo);
             }
         }
     }
-    public void movIzquierda(int num){
+    public void movIzquierda(int num) throws InterruptedException {
         if (isPintable()) {
             for (int i = 0; i < num; i++) {
                 pixeles[LapizFinalX][LapizFinalY] = 0;
                 LapizFinalX--;
                 observado.firePropertyChange("IMAGEN",true, false);
+                sleep(tempo);
             }
         }
     }
-    public void movDerecha(int num) {
+    public void movDerecha(int num) throws InterruptedException {
         if (isPintable()) {
             for (int i = 0; i < num; i++) {
                 pixeles[LapizFinalX][LapizFinalY] = 0;
                 LapizFinalX++;
                 observado.firePropertyChange("IMAGEN",true, false);
+                sleep(tempo);
             }
         }
     }
@@ -158,5 +169,4 @@ public class Imagen implements IDibujador {
     public void setPintable(boolean pintable) {
         this.pintable = pintable;
     }
-
 }
