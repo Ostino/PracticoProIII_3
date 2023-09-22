@@ -84,7 +84,7 @@ public class Ventana extends JFrame {
         System.out.println("Creo objeto de salida con socket");
         String linea = entrada.readLine();
         Test protocolo = new Test(modelo);
-        while (!linea.equals("FIN")) {
+        while (!linea.equals("fin")) {
             System.out.println("<<< " + linea);
             protocolo.entrada(linea);
             String respuesta = protocolo.procesarSalida();
@@ -97,6 +97,4 @@ public class Ventana extends JFrame {
         srv.close();
         System.out.println("Cerrado todo y comunicacion concluida");
     }
-
-
 }
